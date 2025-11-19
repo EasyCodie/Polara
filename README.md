@@ -68,6 +68,16 @@ It provides structure, clarity, and constant adaptation so students always know 
 
 ---
 
+### **Design Philosophy**
+
+* Clarity – Zero clutter. Only what you need to study effectively.
+* Structure – A framework that enforces discipline without feeling rigid.
+* Adaptation – Plans evolve automatically with the student.
+* Simplicity – Fast to use, easy to understand, built for busy academic lives.
+* The UI focuses on clean typography, subtle color coding for courses, and a visually lightweight layout that encourages daily use.
+
+---
+
 ## **Who Polara Is For**
 
 Polara is designed for students who need structure, clarity, and an intelligent system to manage their academic life:
