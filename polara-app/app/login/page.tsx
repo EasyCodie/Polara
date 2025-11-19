@@ -1,3 +1,5 @@
+'use client'
+
 import { login, signup } from './actions'
 
 export default function LoginPage() {
@@ -63,6 +65,23 @@ export default function LoginPage() {
                             >
                                 Sign up
                             </button>
+
+                            {process.env.NODE_ENV === 'development' && (
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        const emailInput = document.getElementById('email') as HTMLInputElement
+                                        const passwordInput = document.getElementById('password') as HTMLInputElement
+                                        if (emailInput && passwordInput) {
+                                            emailInput.value = 'admin@polara.app'
+                                            passwordInput.value = 'password123'
+                                        }
+                                    }}
+                                    className="w-full flex justify-center py-2 px-4 border border-dashed border-gray-400 rounded-md shadow-sm text-sm font-medium text-gray-600 bg-gray-50 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+                                >
+                                    ⚡ Dev Login (Fill Credentials)
+                                </button>
+                            )}
                         </div>
                     </form>
                 </div>

@@ -1,0 +1,100 @@
+'use client'
+
+import { Trash2, CheckCircle, Circle, Clock } from 'lucide-react'
+import { deleteTask, updateTaskStatus } from '@/app/(dashboard)/tasks/actions'
+import { clsx } from 'clsx'
+
+type Task = {
+    id: string
+    title: string
+    description: string | null
+    status: 'Todo' | 'In_Progress' | 'Done' | null
+    difficulty: 'Easy' | 'Medium' | 'Hard' | null
+    due_date: string | null
+    estimated_duration: number | null
+    course: {
+        name: string
+        color_code: string | null
+    } | null
+}
+
+export function TaskList({ tasks }: { tasks: Task[] }) {
+    return (
+        <div className="space-y-4">
+            {tasks.map((task) => (
+                <div
+                    key={task.id}
+                    className="flex items-center justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
+                >
+                    <div className="flex items-center gap-4">
+                        <button
+                            onClick={() => {
+                                const newStatus = task.status === 'Done' ? 'Todo' : 'Done'
+                                updateTaskStatus(task.id, newStatus)
+                            }}
+                            className={clsx(
+                                'flex h-6 w-6 items-center justify-center rounded-full border transition-colors',
+                                task.status === 'Done'
+                                    ? 'border-green-500 bg-green-50 text-green-600 dark:bg-green-900/20'
+                                    : 'border-gray-300 text-transparent hover:border-gray-400 dark:border-gray-600'
+                            )}
+                        >
+                            <CheckCircle className="h-4 w-4" />
+                        </button>
+
+                        <div>
+                            <h3 className={clsx(
+                                "text-sm font-medium dark:text-white",
+                                task.status === 'Done' ? 'text-gray-500 line-through' : 'text-gray-900'
+                            )}>
+                                {task.title}
+                            </h3>
+                            <div className="mt-1 flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                                {task.course && (
+                                    <span
+                                        className="inline-flex items-center rounded-full px-2 py-0.5 font-medium"
+                                        style={{
+                                            backgroundColor: `${task.course.color_code}20`,
+                                            color: task.course.color_code || '#3b82f6'
+                                        }}
+                                    >
+                                        {task.course.name}
+                                    </span>
+                                )}
+                                {task.due_date && (
+                                    <span className="flex items-center gap-1">
+                                        <Clock className="h-3 w-3" />
+                                        {new Date(task.due_date).toLocaleDateString()}
+                                    </span>
+                                )}
+                                {task.difficulty && (
+                                    <span className={clsx(
+                                        "px-1.5 py-0.5 rounded border",
+                                        task.difficulty === 'Hard' ? 'border-red-200 text-red-700 bg-red-50 dark:border-red-900 dark:bg-red-900/20 dark:text-red-400' :
+                                            task.difficulty === 'Medium' ? 'border-yellow-200 text-yellow-700 bg-yellow-50 dark:border-yellow-900 dark:bg-yellow-900/20 dark:text-yellow-400' :
+                                                'border-green-200 text-green-700 bg-green-50 dark:border-green-900 dark:bg-green-900/20 dark:text-green-400'
+                                    )}>
+                                        {task.difficulty}
+                                    </span>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
+                    <button
+                        onClick={() => deleteTask(task.id)}
+                        className="text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
+                        title="Delete task"
+                    >
+                        <Trash2 className="h-4 w-4" />
+                    </button>
+                </div>
+            ))}
+            {tasks.length === 0 && (
+                <div className="flex h-32 items-center justify-center rounded-lg border-2 border-dashed border-gray-300 text-gray-500 dark:border-gray-700 dark:text-gray-400">
+                    No tasks found. Create one to start studying!
+                </div>
+            )}
+        </div>
+    )
+}
