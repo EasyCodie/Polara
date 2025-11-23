@@ -121,20 +121,39 @@ export function AddTaskButton({ courses }: { courses: Course[] }) {
 
                                 <div>
                                     <label
-                                        htmlFor="estimated_duration"
+                                        htmlFor="priority"
                                         className="block text-sm font-medium text-gray-700 dark:text-gray-300"
                                     >
-                                        Est. Duration (mins)
+                                        Priority
                                     </label>
-                                    <input
-                                        type="number"
-                                        name="estimated_duration"
-                                        id="estimated_duration"
-                                        min="0"
-                                        step="15"
+                                    <select
+                                        name="priority"
+                                        id="priority"
+                                        defaultValue="Medium"
                                         className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
-                                    />
+                                    >
+                                        <option value="Low">Low</option>
+                                        <option value="Medium">Medium</option>
+                                        <option value="High">High</option>
+                                    </select>
                                 </div>
+                            </div>
+
+                            <div>
+                                <label
+                                    htmlFor="estimated_duration"
+                                    className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+                                >
+                                    Est. Duration (mins)
+                                </label>
+                                <input
+                                    type="number"
+                                    name="estimated_duration"
+                                    id="estimated_duration"
+                                    min="0"
+                                    step="15"
+                                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                                />
                             </div>
 
                             <div>

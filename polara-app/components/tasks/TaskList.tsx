@@ -10,6 +10,7 @@ type Task = {
     description: string | null
     status: 'Todo' | 'In_Progress' | 'Done' | null
     difficulty: 'Easy' | 'Medium' | 'Hard' | null
+    priority: 'Low' | 'Medium' | 'High' | null
     due_date: string | null
     estimated_duration: number | null
     course: {
@@ -75,6 +76,16 @@ export function TaskList({ tasks }: { tasks: Task[] }) {
                                                 'border-green-200 text-green-700 bg-green-50 dark:border-green-900 dark:bg-green-900/20 dark:text-green-400'
                                     )}>
                                         {task.difficulty}
+                                    </span>
+                                )}
+                                {task.priority && (
+                                    <span className={clsx(
+                                        "px-1.5 py-0.5 rounded border text-[10px] uppercase tracking-wider font-semibold",
+                                        task.priority === 'High' ? 'border-orange-200 text-orange-700 bg-orange-50 dark:border-orange-900 dark:bg-orange-900/20 dark:text-orange-400' :
+                                            task.priority === 'Medium' ? 'border-blue-200 text-blue-700 bg-blue-50 dark:border-blue-900 dark:bg-blue-900/20 dark:text-blue-400' :
+                                                'border-gray-200 text-gray-700 bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400'
+                                    )}>
+                                        {task.priority}
                                     </span>
                                 )}
                             </div>
