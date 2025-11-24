@@ -1,6 +1,6 @@
 'use client'
 
-import { Trash2, CheckCircle, Circle, Clock } from 'lucide-react'
+import { Trash2, CheckCircle, Circle, Clock, Wand2 } from 'lucide-react'
 import { deleteTask, updateTaskStatus } from '@/app/(dashboard)/tasks/actions'
 import { clsx } from 'clsx'
 
@@ -25,7 +25,7 @@ export function TaskList({ tasks }: { tasks: Task[] }) {
             {tasks.map((task) => (
                 <div
                     key={task.id}
-                    className="flex items-center justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
+                    className="group flex items-center justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
                 >
                     <div className="flex items-center gap-4">
                         <button
@@ -65,7 +65,7 @@ export function TaskList({ tasks }: { tasks: Task[] }) {
                                 {task.due_date && (
                                     <span className="flex items-center gap-1">
                                         <Clock className="h-3 w-3" />
-                                        {new Date(task.due_date).toLocaleDateString()}
+                                        {new Date(task.due_date).toLocaleDateString('en-GB')}
                                     </span>
                                 )}
                                 {task.difficulty && (
@@ -92,13 +92,27 @@ export function TaskList({ tasks }: { tasks: Task[] }) {
                         </div>
                     </div>
 
-                    <button
-                        onClick={() => deleteTask(task.id)}
-                        className="text-gray-400 hover:text-red-500 transition-colors opacity-0 group-hover:opacity-100"
-                        title="Delete task"
-                    >
-                        <Trash2 className="h-4 w-4" />
-                    </button>
+                    <div className="flex items-center gap-2">
+                        <button
+                            onClick={async () => {
+                                const { autoScheduleTask } = await import('@/app/(dashboard)/tasks/schedule-actions')
+                                await autoScheduleTask(task.id)
+                                alert('Task broken down into sessions!')
+                            }}
+                            className="text-gray-400 hover:text-indigo-500 transition-colors"
+                            title="Auto-Schedule (Break down task)"
+                        >
+                            <Wand2 className="h-4 w-4" />
+                        </button>
+
+                        <button
+                            onClick={() => deleteTask(task.id)}
+                            className="text-gray-400 hover:text-red-500 transition-colors"
+                            title="Delete task"
+                        >
+                            <Trash2 className="h-4 w-4" />
+                        </button>
+                    </div>
                 </div>
             ))}
             {tasks.length === 0 && (
