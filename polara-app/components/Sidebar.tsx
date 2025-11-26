@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, BookOpen, CheckSquare, Calendar, BarChart2, Settings, LogOut } from 'lucide-react'
+import { Home, BookOpen, CheckSquare, Calendar, BarChart2, Settings, LogOut, GraduationCap } from 'lucide-react'
 import { clsx } from 'clsx'
 import { signout } from '@/app/login/actions'
 
@@ -11,6 +11,7 @@ const navigation = [
     { name: 'Courses', href: '/courses', icon: BookOpen },
     { name: 'Tasks', href: '/tasks', icon: CheckSquare },
     { name: 'Schedule', href: '/schedule', icon: Calendar },
+    { name: 'Exams', href: '/exams', icon: GraduationCap },
     { name: 'Analytics', href: '/analytics', icon: BarChart2 },
 ]
 
