@@ -25,7 +25,7 @@ export function TaskList({ tasks }: { tasks: Task[] }) {
             {tasks.map((task) => (
                 <div
                     key={task.id}
-                    className="group flex items-center justify-between rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition-shadow hover:shadow-md dark:border-gray-700 dark:bg-gray-800"
+                    className="group flex items-center justify-between rounded-lg border border-border bg-card p-4 shadow-sm transition-shadow hover:shadow-md"
                 >
                     <div className="flex items-center gap-4">
                         <button
@@ -37,7 +37,7 @@ export function TaskList({ tasks }: { tasks: Task[] }) {
                                 'flex h-6 w-6 items-center justify-center rounded-full border transition-colors',
                                 task.status === 'Done'
                                     ? 'border-green-500 bg-green-50 text-green-600 dark:bg-green-900/20'
-                                    : 'border-gray-300 text-transparent hover:border-gray-400 dark:border-gray-600'
+                                    : 'border-input text-transparent hover:border-muted-foreground'
                             )}
                         >
                             <CheckCircle className="h-4 w-4" />
@@ -45,12 +45,12 @@ export function TaskList({ tasks }: { tasks: Task[] }) {
 
                         <div>
                             <h3 className={clsx(
-                                "text-sm font-medium dark:text-white",
-                                task.status === 'Done' ? 'text-gray-500 line-through' : 'text-gray-900'
+                                "text-sm font-medium",
+                                task.status === 'Done' ? 'text-muted-foreground line-through' : 'text-foreground'
                             )}>
                                 {task.title}
                             </h3>
-                            <div className="mt-1 flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                            <div className="mt-1 flex items-center gap-2 text-xs text-muted-foreground">
                                 {task.course && (
                                     <span
                                         className="inline-flex items-center rounded-full px-2 py-0.5 font-medium"
@@ -83,7 +83,7 @@ export function TaskList({ tasks }: { tasks: Task[] }) {
                                         "px-1.5 py-0.5 rounded border text-[10px] uppercase tracking-wider font-semibold",
                                         task.priority === 'High' ? 'border-orange-200 text-orange-700 bg-orange-50 dark:border-orange-900 dark:bg-orange-900/20 dark:text-orange-400' :
                                             task.priority === 'Medium' ? 'border-blue-200 text-blue-700 bg-blue-50 dark:border-blue-900 dark:bg-blue-900/20 dark:text-blue-400' :
-                                                'border-gray-200 text-gray-700 bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400'
+                                                'border-border text-muted-foreground bg-muted'
                                     )}>
                                         {task.priority}
                                     </span>
@@ -99,7 +99,7 @@ export function TaskList({ tasks }: { tasks: Task[] }) {
                                 await autoScheduleTask(task.id)
                                 alert('Task broken down into sessions!')
                             }}
-                            className="text-gray-400 hover:text-indigo-500 transition-colors"
+                            className="text-muted-foreground hover:text-primary transition-colors"
                             title="Auto-Schedule (Break down task)"
                         >
                             <Wand2 className="h-4 w-4" />
@@ -107,7 +107,7 @@ export function TaskList({ tasks }: { tasks: Task[] }) {
 
                         <button
                             onClick={() => deleteTask(task.id)}
-                            className="text-gray-400 hover:text-red-500 transition-colors"
+                            className="text-muted-foreground hover:text-destructive transition-colors"
                             title="Delete task"
                         >
                             <Trash2 className="h-4 w-4" />
@@ -116,7 +116,7 @@ export function TaskList({ tasks }: { tasks: Task[] }) {
                 </div>
             ))}
             {tasks.length === 0 && (
-                <div className="flex h-32 items-center justify-center rounded-lg border-2 border-dashed border-gray-300 text-gray-500 dark:border-gray-700 dark:text-gray-400">
+                <div className="flex h-32 items-center justify-center rounded-lg border-2 border-dashed border-border text-muted-foreground">
                     No tasks found. Create one to start studying!
                 </div>
             )}

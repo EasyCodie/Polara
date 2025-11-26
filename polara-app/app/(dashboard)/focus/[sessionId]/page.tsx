@@ -37,18 +37,18 @@ export default async function FocusPage({ params }: Props) {
     }
 
     return (
-        <div className="min-h-screen bg-white dark:bg-gray-900">
+        <div className="min-h-screen bg-background">
             {/* Minimal Header */}
-            <header className="border-b border-gray-200 bg-white px-4 py-4 dark:border-gray-800 dark:bg-gray-900">
+            <header className="border-b border-border bg-background px-4 py-4">
                 <div className="mx-auto flex max-w-3xl items-center justify-between">
                     <Link
                         href="/"
-                        className="flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+                        className="flex items-center text-sm font-medium text-muted-foreground hover:text-foreground"
                     >
                         <ArrowLeft className="mr-2 h-4 w-4" />
                         Exit Focus Mode
                     </Link>
-                    <div className="text-sm font-semibold text-gray-900 dark:text-white">
+                    <div className="text-sm font-semibold text-foreground">
                         Focus Mode
                     </div>
                     <div className="w-20" /> {/* Spacer for centering */}
@@ -70,11 +70,11 @@ export default async function FocusPage({ params }: Props) {
                             </span>
                         )}
                     </div>
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+                    <h1 className="text-3xl font-bold text-foreground">
                         {session.task.title}
                     </h1>
                     {session.task.description && (
-                        <p className="mt-4 text-gray-500 dark:text-gray-400">
+                        <p className="mt-4 text-muted-foreground">
                             {session.task.description}
                         </p>
                     )}

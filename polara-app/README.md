@@ -92,39 +92,77 @@ Polara is designed for students who need structure, clarity, and an intelligent 
 Polara brings order to the academic experience, enabling students to perform better with less stress and more confidence.
 ---
 
+## **Getting Started**
+
+### **Prerequisites**
+
+- Node.js 18+
+- npm or yarn
+- A Supabase project
+
+### **Installation**
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/yourusername/polara.git
+    cd polara/polara-app
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Environment Setup:**
+    Create a `.env.local` file in the root directory and add your Supabase credentials:
+    ```env
+    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+    ```
+
+4.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+
+5.  **Open the app:**
+    Navigate to [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
 ## **Tech Stack Overview**
 
-Polara uses a modern, mainstream, and efficient tech stack that supports fast development, seamless scalability, and clean integration across all components. Supabase is used wherever applicable to simplify authentication, database management, and real-time features.
+Polara uses a modern, mainstream, and efficient tech stack that supports fast development, seamless scalability, and clean integration across all components.
 
 ### **Front-End**
 
-- **Framework:** Next.js (React + TypeScript)
-- **Styling:** Tailwind CSS + optional component library (e.g., shadcn/ui)
-- **State & Data Fetching:** React Query (TanStack Query) + lightweight global state (Zustand or Context API)
-- **Rendering:** Mix of server and client components using Next.js
+- **Framework:** Next.js 15 (React + TypeScript)
+- **Styling:** Tailwind CSS
+- **Icons:** Lucide React
+- **Animations:** Framer Motion
 
 ### **Back-End / Business Logic**
 
-- **Execution Layer:** Next.js API Routes (serverless)
-- **Core Logic:** Task breakdown, dynamic scheduling, and exam strategy implemented inside serverless functions or Supabase Edge Functions
+- **Execution Layer:** Next.js Server Actions
+- **Core Logic:** Task breakdown, dynamic scheduling, and exam strategy implemented in server-side logic
 
 ### **Database & Authentication**
 
 - **Database:** Supabase PostgreSQL
-- **Query Layer:** Supabase client (Prisma optional for type-safe modeling)
-- **Authentication:** Supabase Auth (email/password + optional OAuth)
-- **Storage:** Supabase Storage for attachments if needed
+- **Authentication:** Supabase Auth (email/password)
 
 ### **Hosting & Deployment**
 
-- **Front-end:** Vercel (ideal for Next.js)
-- **Serverless Functions:** Vercel functions or Supabase Edge Functions
+- **Front-end:** Vercel (recommended)
 - **Database Hosting:** Supabase platform
 
-### **Supporting Tools**
+---
 
-- **Analytics:** Google Analytics or Mixpanel
-- **Error Monitoring:** Sentry
-- **CI/CD:** GitHub Actions
-- **Version Control:** GitHub
-- **Linting/Formatting:** ESLint + Prettier
+## **Key Features Implemented**
+
+- **Smart Task Breakdown**: Automatically splits tasks into manageable study sessions.
+- **Dynamic Scheduling**: Distributes sessions based on your availability profile.
+- **Focus Mode**: Distraction-free timer with "Cosmic Night" theme.
+- **Exam Strategy**: Dedicated exam preparation tracking.
+- **Analytics**: Visual insights into your study habits.
+- **Cosmic Night Theme**: A premium dark mode experience.

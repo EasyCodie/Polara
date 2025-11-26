@@ -15,20 +15,12 @@ export async function createTask(formData: FormData) {
     const estimated_duration = formData.get('estimated_duration') as string
     const description = formData.get('description') as string
 
-    console.log('Creating task with data:', {
-        title,
-        course_id,
-        due_date,
-        difficulty,
-        priority,
-        estimated_duration,
-        description
-    })
+
 
     const { data: { user } } = await supabase.auth.getUser()
 
     if (!user) {
-        console.error('User not authenticated')
+
         redirect('/login')
     }
 
@@ -45,11 +37,11 @@ export async function createTask(formData: FormData) {
     }).select()
 
     if (error) {
-        console.error('Error creating task:', error)
+
         throw new Error('Failed to create task: ' + error.message)
     }
 
-    console.log('Task created successfully:', data)
+
     revalidatePath('/tasks')
 }
 
@@ -59,7 +51,7 @@ export async function deleteTask(taskId: string) {
     const { error } = await supabase.from('tasks').delete().eq('id', taskId)
 
     if (error) {
-        console.error('Error deleting task:', error)
+
         throw new Error('Failed to delete task')
     }
 
@@ -72,7 +64,7 @@ export async function updateTaskStatus(taskId: string, status: 'Todo' | 'In_Prog
     const { error } = await supabase.from('tasks').update({ status }).eq('id', taskId)
 
     if (error) {
-        console.error('Error updating task status:', error)
+
         throw new Error('Failed to update task status')
     }
 

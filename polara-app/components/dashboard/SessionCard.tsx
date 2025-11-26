@@ -5,6 +5,7 @@ import { updateSessionStatus } from '@/app/(dashboard)/dashboard/actions'
 import { useState } from 'react'
 import { clsx } from 'clsx'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 
 type SessionCardProps = {
     session: {
@@ -41,17 +42,23 @@ export function SessionCard({ session }: SessionCardProps) {
     const isInProgress = session.status === 'In Progress'
 
     return (
-        <div className={clsx(
-            "flex items-center gap-4 rounded-lg border p-4 shadow-sm transition-all",
-            isCompleted ? "border-green-200 bg-green-50 dark:border-green-900/30 dark:bg-green-900/10" :
-                isInProgress ? "border-indigo-200 bg-indigo-50 dark:border-indigo-900/30 dark:bg-indigo-900/10" :
-                    "border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800"
-        )}>
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.2 }}
+            className={clsx(
+                "flex items-center gap-4 rounded-lg border p-4 shadow-sm transition-colors",
+                isCompleted ? "border-green-200 bg-green-50/50 dark:border-green-900/30 dark:bg-green-900/10" :
+                    isInProgress ? "border-primary/20 bg-primary/5" :
+                        "border-border bg-card"
+            )}
+        >
             <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                     <h4 className={clsx(
                         "truncate text-sm font-medium",
-                        isCompleted ? "text-green-900 dark:text-green-100 line-through" : "text-gray-900 dark:text-white"
+                        isCompleted ? "text-green-900 dark:text-green-100 line-through" : "text-foreground"
                     )}>
                         {session.task.title}
                     </h4>
@@ -67,7 +74,7 @@ export function SessionCard({ session }: SessionCardProps) {
                         </span>
                     )}
                 </div>
-                <div className="mt-1 flex items-center text-xs text-gray-500 dark:text-gray-400">
+                <div className="mt-1 flex items-center text-xs text-muted-foreground">
                     <Clock className="mr-1 h-3 w-3" />
                     <span>
                         {new Date(session.scheduled_start).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false })}
@@ -84,7 +91,7 @@ export function SessionCard({ session }: SessionCardProps) {
                     <Link
                         href={`/focus/${session.id}`}
                         onClick={() => handleStatusChange('In Progress')}
-                        className="rounded-full p-2 text-indigo-600 hover:bg-indigo-100 dark:text-indigo-400 dark:hover:bg-indigo-900/30"
+                        className="rounded-full p-2 text-primary hover:bg-primary/10"
                         title="Start Session"
                     >
                         <PlayCircle className="h-6 w-6" />
@@ -94,7 +101,7 @@ export function SessionCard({ session }: SessionCardProps) {
                 {session.status === 'In Progress' && (
                     <Link
                         href={`/focus/${session.id}`}
-                        className="rounded-full p-2 text-indigo-600 hover:bg-indigo-100 dark:text-indigo-400 dark:hover:bg-indigo-900/30"
+                        className="rounded-full p-2 text-primary hover:bg-primary/10"
                         title="Resume Session"
                     >
                         <PlayCircle className="h-6 w-6" />
@@ -107,6 +114,6 @@ export function SessionCard({ session }: SessionCardProps) {
                     </div>
                 )}
             </div>
-        </div>
+        </motion.div>
     )
 }

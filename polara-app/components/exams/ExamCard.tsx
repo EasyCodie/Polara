@@ -5,6 +5,7 @@ import { Calendar, Trash2, Target, BookOpen } from 'lucide-react'
 import { deleteExam } from '@/app/(dashboard)/exams/actions'
 import { useState } from 'react'
 import { clsx } from 'clsx'
+import { motion } from 'framer-motion'
 
 type ExamCardProps = {
     exam: {
@@ -39,7 +40,13 @@ export function ExamCard({ exam }: ExamCardProps) {
     const isPast = new Date() > examDate
 
     return (
-        <div className="group relative flex flex-col justify-between rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition-all hover:shadow-md dark:border-gray-800 dark:bg-gray-900">
+        <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            whileHover={{ y: -5 }}
+            transition={{ duration: 0.2 }}
+            className="group relative flex flex-col justify-between rounded-xl border border-border bg-card p-5 shadow-sm transition-all hover:shadow-md"
+        >
             <div>
                 <div className="mb-3 flex items-start justify-between">
                     <div className="flex items-center gap-2">
@@ -55,21 +62,21 @@ export function ExamCard({ exam }: ExamCardProps) {
                             </span>
                         )}
                     </div>
-                    <button
-                        onClick={handleDelete}
-                        disabled={isDeleting}
-                        className="opacity-0 transition-opacity group-hover:opacity-100 text-gray-400 hover:text-red-500"
-                        title="Delete Exam"
-                    >
-                        <Trash2 className="h-4 w-4" />
-                    </button>
+                    <div className="opacity-0 transition-opacity group-hover:opacity-100">
+                        <button
+                            onClick={handleDelete}
+                            className="rounded-full p-2 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+                        >
+                            <Trash2 className="h-5 w-5" />
+                        </button>
+                    </div>
                 </div>
 
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                <h3 className="text-lg font-semibold text-foreground">
                     {exam.title}
                 </h3>
 
-                <div className="mt-4 space-y-2 text-sm text-gray-500 dark:text-gray-400">
+                <div className="mt-4 space-y-2 text-sm text-muted-foreground">
                     <div className="flex items-center gap-2">
                         <Calendar className="h-4 w-4" />
                         <span className={clsx(isPast ? "text-red-500" : "text-green-600")}>
@@ -92,6 +99,6 @@ export function ExamCard({ exam }: ExamCardProps) {
                     )}
                 </div>
             </div>
-        </div>
+        </motion.div>
     )
 }

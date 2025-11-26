@@ -6,6 +6,7 @@ import { updateSessionStatus } from '@/app/(dashboard)/dashboard/actions'
 import { useRouter } from 'next/navigation'
 import { clsx } from 'clsx'
 
+
 type FocusTimerProps = {
     sessionId: string
     initialDuration: number // in minutes
@@ -97,12 +98,12 @@ export function FocusTimer({ sessionId, initialDuration, onComplete }: FocusTime
     return (
         <div className="flex flex-col items-center justify-center space-y-8">
             {/* Timer Display */}
-            <div className="relative flex h-64 w-64 items-center justify-center rounded-full border-8 border-gray-100 dark:border-gray-800">
+            <div className="relative flex h-64 w-64 items-center justify-center rounded-full border-8 border-muted/20">
                 {/* Progress Ring (Simple SVG or CSS conic gradient could go here, using simple border for now) */}
                 <div
                     className={clsx(
                         "absolute inset-0 rounded-full border-8 transition-all duration-1000",
-                        mode === 'focus' ? "border-indigo-600" : "border-green-500"
+                        mode === 'focus' ? "border-primary" : "border-green-500"
                     )}
                     style={{
                         clipPath: `inset(0 0 ${100 - progress}% 0)` // Simple vertical fill effect for MVP, ring is harder without SVG
@@ -119,7 +120,7 @@ export function FocusTimer({ sessionId, initialDuration, onComplete }: FocusTime
                         stroke="currentColor"
                         strokeWidth="8"
                         fill="transparent"
-                        className="text-gray-100 dark:text-gray-800"
+                        className="text-muted/20"
                     />
                     <circle
                         cx="120"
@@ -132,7 +133,7 @@ export function FocusTimer({ sessionId, initialDuration, onComplete }: FocusTime
                         strokeDashoffset={2 * Math.PI * 112 * (1 - progress / 100)}
                         className={clsx(
                             "transition-all duration-1000 ease-linear",
-                            mode === 'focus' ? "text-indigo-600" : "text-green-500"
+                            mode === 'focus' ? "text-primary" : "text-green-500"
                         )}
                     />
                 </svg>
@@ -140,11 +141,11 @@ export function FocusTimer({ sessionId, initialDuration, onComplete }: FocusTime
                 <div className="z-10 text-center">
                     <div className={clsx(
                         "text-5xl font-bold tabular-nums",
-                        mode === 'focus' ? "text-gray-900 dark:text-white" : "text-green-600 dark:text-green-400"
+                        mode === 'focus' ? "text-foreground" : "text-green-600 dark:text-green-400"
                     )}>
                         {formatTime(timeLeft)}
                     </div>
-                    <p className="mt-2 text-sm font-medium uppercase tracking-widest text-gray-500">
+                    <p className="mt-2 text-sm font-medium uppercase tracking-widest text-muted-foreground">
                         {mode === 'focus' ? 'Focus' : 'Break'}
                     </p>
                 </div>
@@ -155,8 +156,8 @@ export function FocusTimer({ sessionId, initialDuration, onComplete }: FocusTime
                 <button
                     onClick={toggleTimer}
                     className={clsx(
-                        "flex h-14 w-14 items-center justify-center rounded-full text-white shadow-lg transition-transform hover:scale-105 active:scale-95",
-                        isActive ? "bg-amber-500 hover:bg-amber-600" : "bg-indigo-600 hover:bg-indigo-700"
+                        "flex h-14 w-14 items-center justify-center rounded-full text-primary-foreground shadow-lg transition-transform hover:scale-105 active:scale-95",
+                        isActive ? "bg-amber-500 hover:bg-amber-600" : "bg-primary hover:bg-primary/90"
                     )}
                 >
                     {isActive ? <Pause className="h-6 w-6" /> : <Play className="ml-1 h-6 w-6" />}
@@ -164,7 +165,7 @@ export function FocusTimer({ sessionId, initialDuration, onComplete }: FocusTime
 
                 <button
                     onClick={resetTimer}
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-muted-foreground hover:bg-muted/80"
                     title="Reset Timer"
                 >
                     <RotateCcw className="h-4 w-4" />
@@ -173,7 +174,7 @@ export function FocusTimer({ sessionId, initialDuration, onComplete }: FocusTime
                 {mode === 'break' && (
                     <button
                         onClick={skipBreak}
-                        className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700"
+                        className="flex h-10 w-10 items-center justify-center rounded-full bg-muted text-muted-foreground hover:bg-muted/80"
                         title="Skip Break"
                     >
                         <SkipForward className="h-4 w-4" />
@@ -182,7 +183,7 @@ export function FocusTimer({ sessionId, initialDuration, onComplete }: FocusTime
             </div>
 
             {/* Session Actions */}
-            <div className="w-full max-w-xs border-t border-gray-200 pt-8 dark:border-gray-800">
+            <div className="w-full max-w-xs border-t border-border pt-8">
                 <button
                     onClick={handleCompleteSession}
                     className="flex w-full items-center justify-center gap-2 rounded-lg bg-green-600 px-4 py-3 font-medium text-white transition-colors hover:bg-green-700"
